@@ -1,0 +1,28 @@
+.pagination {
+  width: fit-content;
+  display: flex;
+  //   background-color: #fff;
+  box-shadow: 0px 0px 5px 2px #ebecef;
+  &__item {
+    padding: 8px 16px;
+    border: 1px solid #ddd;
+    background-color: #fff;
+    display: flex;
+    align-items: center;
+    justify-items: center;
+    &--prev {
+      border-top-left-radius: 5px;
+      border-bottom-left-radius: 5px;
+      padding: 8px;
+    }
+    &--next {
+      border-top-right-radius: 5px;
+      border-bottom-right-radius: 5px;
+      padding: 8px;
+    }
+    &.active {
+      background-color: #eef2ff;
+      border-color: #6366f1;
+    }
+  }
+}

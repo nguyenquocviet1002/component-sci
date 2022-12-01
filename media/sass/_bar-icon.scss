@@ -1,0 +1,43 @@
+.barIcon {
+  background-color: #1f2937;
+  display: flex;
+  justify-content: space-between;
+  &--horizontal {
+    width: 100%;
+    height: 100px;
+  }
+  &--vertical {
+    width: 100px;
+    height: 390px;
+    flex-direction: column;
+  }
+  &__item {
+    flex: 1;
+    color: #d1d5db;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    font-size: 20px;
+    &:hover {
+      background-color: #374151;
+      color: #fff;
+    }
+    &.active {
+      background-color: #111827;
+      color: #fff;
+    }
+  }
+}
+
+.barIcon__vertical {
+  flex-direction: column;
+  width: 90px;
+  height: auto;
+  &__item {
+    padding: 16px;
+  }
+}

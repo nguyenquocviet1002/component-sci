@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Component Navbar</title>
+    <link rel="stylesheet" href="media/sass/style.css">
+</head>
+
+<body style="background-color: #F3F4F6;">
+    <div class="container" style="padding-top: 20px;">
+        <!-- start component -->
+        <h3>Navbar Responsive</h3>
+        <div class="topnav" id="myTopnav">
+            <a href="#" class="topnav__logo">Logo</a>
+            <a href="#home" class="topnav__item active">Home</a>
+            <a href="#news" class="topnav__item">News</a>
+            <a href="#contact" class="topnav__item">Contact</a>
+            <a href="#about" class="topnav__item">About</a>
+            <div class="iconMenu" id="icon">
+                <div class="iconMenu__item iconMenu__item--1"></div>
+                <div class="iconMenu__item iconMenu__item--2"></div>
+                <div class="iconMenu__item iconMenu__item--3"></div>
+            </div>
+        </div>
+
+        <h3>Navbar With Search</h3>
+        <div class="topnav" id="myTopnav">
+            <a href="#" class="topnav__logo">Logo</a>
+            <a href="#home" class="topnav__item active">Home</a>
+            <a href="#news" class="topnav__item">News</a>
+            <a href="#contact" class="topnav__item">Contact</a>
+            <a href="#about" class="topnav__item">About</a>
+            <div class="topnav__search">
+                <input type="text" placeholder="Search">
+                <button><i class="icon-search-2"></i></button>
+            </div>
+            <div class="iconMenu" id="icon">
+                <div class="iconMenu__item iconMenu__item--1"></div>
+                <div class="iconMenu__item iconMenu__item--2"></div>
+                <div class="iconMenu__item iconMenu__item--3"></div>
+            </div>
+        </div>
+
+        <h3>Navbar With Icon</h3>
+        <div class="topnav" id="myTopnav">
+            <a href="#" class="topnav__logo">Logo</a>
+            <a href="#home" class="topnav__item active"><i class="icon-home-1"></i>Home</a>
+            <a href="#news" class="topnav__item"><i class="icon-newspaper"></i>News</a>
+            <a href="#contact" class="topnav__item"><i class="icon-calendar-1"></i>Contact</a>
+            <a href="#about" class="topnav__item"><i class="icon-tag-1"></i>About</a>
+            <!-- <div class="topnav__search">
+                <input type="text" placeholder="Search">
+                <button><i class="icon-search-2"></i></button>
+            </div> -->
+            <div class="iconMenu" id="icon">
+                <div class="iconMenu__item iconMenu__item--1"></div>
+                <div class="iconMenu__item iconMenu__item--2"></div>
+                <div class="iconMenu__item iconMenu__item--3"></div>
+            </div>
+        </div>
+        <!-- end component -->
+    </div>
+
+    <script>
+        const icon = document.getElementById('icon');
+        icon.addEventListener('click', () => {
+            icon.classList.toggle('active');
+            var x = document.getElementById("myTopnav");
+            if (x.className === "topnav") {
+                x.className += " responsive";
+            } else {
+                x.className = "topnav";
+            }
+        })
+    </script>
+
+</body>
+
+</html>

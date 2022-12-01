@@ -1,0 +1,26 @@
+.dropdown {
+  padding: 8px 16px;
+  background-color: #fff;
+  box-shadow: 0px 0px 5px 2px #ebecef;
+  font-weight: 500;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  &__content {
+    display: none;
+    margin-top: 8px;
+    padding: 4px 0;
+    background-color: #fff;
+    width: fit-content;
+    min-width: 225px;
+    box-shadow: 0px 0px 5px 2px #ebecef;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    a {
+      padding: 8px 16px;
+      display: block;
+    }
+    &.active {
+      display: block;
+    }
+  }
+}

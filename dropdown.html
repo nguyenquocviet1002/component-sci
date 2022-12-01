@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Component Navbar</title>
+    <link rel="stylesheet" href="media/sass/style.css">
+</head>
+
+<body style="background-color: #F3F4F6;">
+    <div class="container" style="padding-top: 20px;">
+        <!-- start component -->
+        <h3>Dropdown Click</h3>
+        <button type="button" class="dropdown">
+            Option
+            <i class="icon-down-open-1"></i>
+        </button>
+        <div class="dropdown__content">
+            <a href="#">Account settings</a>
+            <a href="#">Account settings</a>
+            <a href="#">Account settings</a>
+            <a href="#">Account settings</a>
+        </div>
+
+        <h3>Dropdown Hover</h3>
+        <button type="button" class="dropdown dropdown--1">
+            Option
+            <i class="icon-down-open-1"></i>
+        </button>
+        <div class="dropdown__content dropdown__content--1">
+            <a href="#">Account settings</a>
+            <a href="#">Account settings</a>
+            <a href="#">Account settings</a>
+            <a href="#">Account settings</a>
+        </div>
+        <!-- end component -->
+    </div>
+
+    <script>
+        const btn = document.getElementsByClassName('dropdown');
+        btn[0].addEventListener('click', function () {
+            document.getElementsByClassName('dropdown__content')[0].classList.toggle('active');
+        })
+        const btn1 = document.getElementsByClassName('dropdown--1');
+        const btn3 = document.getElementsByClassName('dropdown__content--1');
+        btn1[0].addEventListener('mouseover', function () {
+            document.getElementsByClassName('dropdown__content--1')[0].classList.toggle('active');
+        })
+        // btn3[0].addEventListener('mouseover', function () {
+        //     document.getElementsByClassName('dropdown__content--1')[0].classList.add('active');
+        // })
+        // btn1[0].addEventListener('mouseout', function () {
+        //     document.getElementsByClassName('dropdown__content--1')[0].classList.remove('active');
+        // })  
+    </script>
+
+</body>
+
+</html>

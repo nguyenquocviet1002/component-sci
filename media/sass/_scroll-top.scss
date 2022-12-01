@@ -1,0 +1,16 @@
+.scroll__top {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  box-shadow: 0px 0px 5px 2px #ebecef;
+  border: 1px solid #ddd;
+  background-color: #fff;
+  padding: 10px 25px;
+  border-radius: 5px;
+  font-weight: 500;
+  cursor: pointer;
+  visibility: hidden;
+  &:hover {
+    background-color: #f3f3f3;
+  }
+}

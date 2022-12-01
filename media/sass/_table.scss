@@ -1,0 +1,90 @@
+.table {
+  border-collapse: collapse;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0px 0px 5px 2px #ebecef;
+  td {
+    border-top: unset;
+    padding: 10px 20px;
+  }
+}
+
+.table--default {
+  .table {
+    &__head {
+      background-color: #f9fafb;
+      text-transform: uppercase;
+      font-weight: bold;
+      tr {
+        border-bottom: 1px solid #ddd;
+      }
+    }
+    &__body {
+      background-color: #fff;
+      tr:not(:last-child) {
+        border-bottom: 1px solid #ddd;
+      }
+      td {
+        padding: 15px 20px;
+      }
+    }
+  }
+}
+
+.table--flex {
+  .table {
+    &__head {
+      display: flex;
+      background-color: #f9fafb;
+      border-bottom: 1px solid #ddd;
+      font-weight: bold;
+      > div {
+        padding: 10px 20px;
+        text-transform: uppercase;
+        flex: 1;
+      }
+    }
+    &__body {
+      background-color: #fff;
+    }
+    &__row {
+      display: flex;
+      > div {
+        padding: 10px 20px;
+        flex: 1;
+      }
+      &:not(:last-child) {
+        border-bottom: 1px solid #ddd;
+      }
+    }
+  }
+}
+
+.table--grid {
+  .table {
+    &__head {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      background-color: #f9fafb;
+      border-bottom: 1px solid #ddd;
+      font-weight: bold;
+      > div {
+        padding: 10px 20px;
+        text-transform: uppercase;
+      }
+    }
+    &__body {
+      background-color: #fff;
+    }
+    &__row {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      > div {
+        padding: 10px 20px;
+      }
+      &:not(:last-child) {
+        border-bottom: 1px solid #ddd;
+      }
+    }
+  }
+}

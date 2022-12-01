@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Component Navbar</title>
+    <link rel="stylesheet" href="media/sass/style.css">
+</head>
+
+<body style="background-color: #F3F4F6;">
+    <div class="container" style="padding-top: 20px;">
+        <!-- start component -->
+        <div class="iconMenu" id="icon">
+            <div class="iconMenu__item iconMenu__item--1"></div>
+            <div class="iconMenu__item iconMenu__item--2"></div>
+            <div class="iconMenu__item iconMenu__item--3"></div>
+        </div>
+        <!-- end component -->
+    </div>
+
+    <script>
+        const icon = document.getElementById('icon');
+        icon.addEventListener('click', () => {
+            icon.classList.toggle('active');
+        })
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://huudinh.github.io/assets/sass/lib.min.css">
+    <style>
+        #myChart {
+            margin: auto;
+        }
+
+        #title,
+        #data {
+            display: block;
+        }
+
+        #form {
+            width: 50%;
+            /* margin: auto;
+            text-align: center; */
+        }
+
+        /* #form input {
+            margin: auto;
+        } */
+    </style>
+</head>
+
+<body>
+    <div class="flex">
+        <div id="chart_div" style="width:100%; max-width:900px; height:400px;">
+        </div>
+
+        <!-- <form id="form">
+            <div>
+                <label for="title">Title</label>
+                <input type="text" id="title">
+            </div>
+            <div>
+                <label for="data">Data</label>
+                <input type="number" id="data">
+            </div>
+            <button type="submit" id="submit">Gửi</button>
+        </form> -->
+    </div>
+
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+    <script>
+
+
+
+        google.charts.load('current', { packages: ['corechart', 'line'] });
+        google.charts.setOnLoadCallback(drawCurveTypes);
+
+        function drawCurveTypes() {
+            var data = new google.visualization.DataTable();
+            data.addColumn('number', 'X');
+            data.addColumn('number', 'Dogs');
+            data.addColumn('number', 'Cats');
+            data.addColumn('number', 'Fish');
+
+            data.addRows([
+                [0, 0, 0, 0], [1, 15, 5, 4], [2, 16, 7, 10], [3, 11, 5, 9]
+            ]);
+
+            var options = {
+                hAxis: {
+                    title: 'Time'
+                },
+                vAxis: {
+                    title: 'Popularity'
+                },
+                series: {
+                    1: { curveType: 'function' }
+                }
+            };
+
+            var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
+            chart.draw(data, options);
+        }
+    </script>
+
+</body>
+
+</html>
