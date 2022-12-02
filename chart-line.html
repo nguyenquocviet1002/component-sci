@@ -1,107 +1,70 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-    <link
-      rel="stylesheet"
-      href="https://huudinh.github.io/assets/sass/lib.min.css"
-    />
-    <style>
-      #myChart {
-        margin: auto;
-      }
 
-      #title,
-      #data {
-        display: block;
-      }
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Document</title>
+  <link rel="stylesheet" href="https://huudinh.github.io/assets/sass/lib.min.css" />
 
-      #form {
-        width: 50%;
-        /* margin: auto;
-            text-align: center; */
-      }
+</head>
 
-      /* #form input {
-            margin: auto;
-        } */
-    </style>
-  </head>
+<body>
+  <div class="container">
+    <div id="chart_div" style="width: 100%; max-width: 1920px; height: 400px"></div>
 
-  <body>
-    <div class="flex">
-      <div
-        id="chart_div"
-        style="width: 100%; max-width: 1920px; height: 400px"
-      ></div>
+  </div>
 
-      <form id="form">
-        <div>
-          <label for="title">Title</label>
-          <input type="text" id="title" />
-        </div>
-        <div>
-          <label for="data">Time</label>
-          <input type="month" id="time" />
-        </div>
-        <div>
-          <label for="data">Data</label>
-          <input type="number" id="data" />
-        </div>
-        <button type="submit" id="submit">Gửi</button>
-      </form>
-    </div>
 
-    <script
-      type="text/javascript"
-      src="https://www.gstatic.com/charts/loader.js"
-    ></script>
+  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 
-    <script>
-      google.charts.load("current", { packages: ["corechart", "line"] });
-      google.charts.setOnLoadCallback(drawCurveTypes);
+  <script>
+    google.charts.load("current", { packages: ["corechart", "line"] });
+    google.charts.setOnLoadCallback(drawCurveTypes);
 
-      function drawCurveTypes() {
-        var data = new google.visualization.DataTable();
-        data.addColumn("date", "Month");
-        data.addColumn("number", "Dogs");
-        data.addColumn("number", "Cats");
+    function drawCurveTypes() {
+      var data = new google.visualization.DataTable();
+      const animal = ['Dogs', "Cats"];
+      animal.map(item => {})
+      data.addColumn("number", "Month");
+      data.addColumn("number", "Kangnam");
+      data.addColumn("number", "Paris");
+      data.addColumn("number", "Hồng Hà");
 
-        data.addRows([
-          [new Date(2014, 0), -0.5, 5.7],
-          [new Date(2014, 1), 0.4, 8.7],
-          [new Date(2014, 2), 0.5, 12],
-          [new Date(2014, 3), 2.9, 15.3],
-          [new Date(2014, 4), 6.3, 18.6],
-          [new Date(2014, 5), 9, 20.9],
-          [new Date(2014, 6), 9, 20.9],
-          [new Date(2014, 7), 9, 20.9],
-          [new Date(2014, 8), 9, 20.9],
-          [new Date(2014, 9), 9, 20.9],
-          [new Date(2014, 10), 9, 20.9],
-          [new Date(2014, 11), 9, 20.9],
-        ]);
+      data.addRows([
+        [1, -0.5, 5.7, 1],
+        [2, 0.4, 8.7, 2],
+        [3, 0.5, 12, 2],
+        [4, 2.9, 15.3, 3],
+        // [5, 6.3, 18.6],
+        // [6, 9, 20.9],
+        // [7, 9, 20.9],
+        // [8, 9, 20.9],
+        // [9, 9, 20.9],
+        // [10, 9, 20.9],
+        // [11, 9, 20.9],
+        // [12, 9, 20.9],
+      ]);
 
-        var options = {
-          hAxis: {
-            title: "Time",
-          },
-          vAxis: {
-            title: "Popularity",
-          },
-          series: {
-            1: { curveType: "function" },
-          },
-        };
+      var options = {
+        hAxis: {
+          title: "Time",
+        },
+        vAxis: {
+          title: "Popularity",
+        },
+        series: {
+          1: { curveType: "function" },
+        },
+      };
 
-        var chart = new google.visualization.LineChart(
-          document.getElementById("chart_div")
-        );
-        chart.draw(data, options);
-      }
-    </script>
-  </body>
+      var chart = new google.visualization.LineChart(
+        document.getElementById("chart_div")
+      );
+      chart.draw(data, options);
+    }
+  </script>
+</body>
+
 </html>

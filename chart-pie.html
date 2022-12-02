@@ -2,107 +2,131 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="https://huudinh.github.io/assets/sass/lib.min.css">
-    <style>
-        #myChart {
-            margin: auto;
-        }
-
-        #title,
-        #data {
-            display: block;
-        }
-
-        #form {
-            width: 50%;
-            /* margin: auto;
-            text-align: center; */
-        }
-
-        /* #form input {
-            margin: auto;
-        } */
-    </style>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Document</title>
+  <link rel="stylesheet" href="https://huudinh.github.io/assets/sass/lib.min.css" />
+  <link rel="stylesheet" href="media/sass/style.css">
 </head>
 
 <body>
-    <div class="flex">
-        <div id="myChart" style="width:100%; max-width:600px; height:400px;">
-        </div>
-
-        <form id="form">
-            <div>
-                <label for="title">Title</label>
-                <input type="text" id="title">
-            </div>
-            <div>
-                <label for="data">Data</label>
-                <input type="number" id="data">
-            </div>
-            <button type="submit" id="submit">Gửi</button>
-        </form>
+  <div class="container">
+    <div id="myChart" style="width: 100%; max-width: 100%; height: 400px"></div>
+    <div>
+      <label for="title">Title</label>
+      <input type="text" id="title" />
     </div>
+    <div>
+      <label for="data">Data</label>
+      <input type="number" id="data" />
+    </div>
+    <button type="submit" id="submit">Gửi</button>
+    <div class="form" id="form">
+      <div class="chart__title">
+        <div>Title</div>
+        <div>Data</div>
+      </div>
+    </div>
+  </div>
 
-    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 
-    <script>
-
-
-
-        let dataArray = [['Title', 'Data']];
-        const renderChart = () => {
-            const getvalue = localStorage.getItem('data');
-            if (getvalue) {
-                const parse = JSON.parse(getvalue);
-                const data2 = [];
-                for (let i = 0; i < parse.length; i++) {
-                    data2.push(parse[i]);
-                }
-
-                google.charts.load('current', { 'packages': ['corechart'] });
-                google.charts.setOnLoadCallback(drawChart);
-
-                function drawChart() {
-                    var data = google.visualization.arrayToDataTable(data2);
-
-                    var options = {
-                        title: 'World Wide Wine Production',
-                        is3D: true
-                    };
-
-                    var chart = new google.visualization.PieChart(document.getElementById('myChart'));
-                    chart.draw(data, options);
-                }
-            }
-            else {
-                document.getElementById('myChart').innerHTML = "No data"
-            }
-        }
-
-        renderChart()
-
-        document.getElementById('submit').addEventListener('click', function (e) {
-            e.preventDefault();
-            let title = document.getElementById('title').value;
-            let data = document.getElementById('data').value;
-            const value = [title, Number(data)];
-            dataArray.push(value);
-            const myJSON = JSON.stringify(dataArray);
-            localStorage.setItem('data', myJSON);
-            renderChart();
-            document.getElementById('form').reset();
-        })
-    </script>
-    <script>
+  <script>
+    
+    
 
 
+    let dataArray = [["Title", "Data"], ["title1", 25], ["title2", 50]];
+    const renderChart = () => {
+      google.charts.load("current", { packages: ["corechart"] });
+      google.charts.setOnLoadCallback(drawChart);
 
+      function drawChart() {
+        var data = google.visualization.arrayToDataTable(dataArray);
 
-    </script>
+        var options = {
+          title: "World Wide Wine Production",
+          is3D: true,
+        };
+
+        var chart = new google.visualization.PieChart(
+          document.getElementById("myChart")
+        );
+        chart.draw(data, options);
+      }
+      // const getvalue = localStorage.getItem("data");
+      // if (getvalue) {
+      //   const parse = JSON.parse(getvalue);
+      //   const data2 = [];
+      //   for (let i = 0; i < parse.length; i++) {
+      //     data2.push(parse[i]);
+      //   }
+
+      // } else {
+      //   document.getElementById("myChart").innerHTML = "No data";
+      // }
+    };
+
+    const renderUI = () => {
+      // const getvalue = localStorage.getItem("data");
+      let html = "";
+      for (let i = 1; i < dataArray.length; i++) {
+        html += `
+            <div class="form__group">
+              <div class="form__control">
+                <input type="text" class="dataKangnam${i}" placeholder="0" value='${dataArray[i][0]}'>
+              </div>
+              <div class="form__control">
+                <input type="number" class="dataParis${i}" placeholder="0" value='${dataArray[i][1]}'>
+              </div>
+            </div>
+          `;
+      }
+      // if (getvalue) {
+      //   const parse = JSON.parse(getvalue);
+      // }
+      // else {
+      //   document.getElementById("myChart").innerHTML = "No data";
+      // }
+      document.getElementById("form").insertAdjacentHTML("beforeend", html);
+    }
+
+    const formInput = () => {
+      let html = "";
+      for (let i = 1; i < dataArray.length; i++) {
+        html = `
+            <div class="form__group">
+              <div class="form__control">
+                <input type="text" class="dataKangnam${i}" placeholder="0" value='${dataArray[i][0]}'>
+              </div>
+              <div class="form__control">
+                <input type="number" class="dataParis${i}" placeholder="0" value='${dataArray[i][1]}'>
+              </div>
+            </div>
+          `;
+      }
+      document.getElementById("form").insertAdjacentHTML("beforeend", html);
+    }
+
+    renderChart();
+    renderUI()
+
+    document.getElementById("submit").addEventListener("click", function (e) {
+      e.preventDefault();
+      let title = document.getElementById("title").value;
+      let data = document.getElementById("data").value;
+      const value = [title, Number(data)];
+      dataArray.push(value);
+      // const myJSON = JSON.stringify(dataArray);
+      // localStorage.setItem("data", myJSON);
+      document.getElementById("title").value = '';
+      document.getElementById("data").value = '';
+      renderChart();
+      formInput();
+    });
+  </script>
+  <script></script>
 </body>
 
 </html>
