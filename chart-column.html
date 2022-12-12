@@ -10,108 +10,130 @@
   <link rel="stylesheet" href="media/sass/style.css" />
 </head>
 
-<body onload="formInput()">
+<body>
   <div class="container">
     <div id="chart__column" style="width: 100%; max-width: 100%; height: 400px"></div>
-    <div class="form" id="form">
-      <div class="chart__title">
+    <div class="list">
+      <div class="list__title">
         <div>Tháng</div>
         <div>Kangnam</div>
         <div>Paris</div>
         <div>Hồng Hà</div>
       </div>
+      <div id="list__data"></div>
     </div>
+    <!-- <div class="form" id="form">
+      <div class="box__form">
+        <div>Tháng</div>
+        <div>Kangnam</div>
+        <div>Paris</div>
+        <div>Hồng Hà</div>
+      </div>
+      <div class="form__group">
+          <div class="form__control">
+            <input type="number" disabled value="${i}">
+          </div>
+          <div class="form__control">
+            <input type="number" class="dataKangnam${i}" placeholder='${parse[i][1]}'>
+          </div>
+          <div class="form__control">
+            <input type="number" class="dataParis${i}" placeholder='${parse[i][2]}'>
+          </div>
+          <div class="form__control">
+            <input type="number" class="dataHongha${i}" placeholder='${parse[i][3]}'>
+          </div>
+          </div>
+      </div> -->
     <button type="submit" id="submit" class="chart__btn">Lưu</button>
   </div>
 
   <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
   <script>
-    const formInput = () => {
-      const getvalue = localStorage.getItem("data");
+   const dataLocal = localStorage.getItem("data");
+   if (!dataLocal) {
+    var dataValue = [['Tháng', 'Kangnam', 'Paris', 'Hồng Hà'], ['Tháng 1', 2, 3, 4], ['Tháng 2', 3, 4, 5], ['Tháng 3', 4, 5, 6], ['Tháng 4', 5, 6, 7], ['Tháng 5', 6, 7, 8], ['Tháng 6', 7, 8, 9], ['Tháng 7', 8, 9, 10], ['Tháng 8', 9, 10, 11], ['Tháng 9', 10, 11, 12], ['Tháng 10', 11, 12, 1], ['Tháng 11', 12, 1, 2], ['Tháng 12', 1, 2, 3]];
+
+    
+    } else {
+      var dataValue = JSON.parse(dataLocal);
+    }
+
+      
+
+    const renderListData = () => {
       let html = "";
-      if (getvalue) {
-        const parse = JSON.parse(getvalue);
-        for (let i = 1; i <= 12; i++) {
-          html += `
-              <div class="form__group">
-                <div class="form__control">
-                  <input type="number" disabled value="${i}">
+      for (let i = 0; i < 12; i++) {
+        html += `
+              <div class="list__group">
+                <div class="list__control">
+                  <input type="text" disabled value="${dataValue[i + 1][0]}">
                 </div>
-                <div class="form__control">
-                  <input type="number" class="dataKangnam${i}" placeholder="0" value='${parse[i][1]}'>
+                <div class="list__control list__item">
+                  <input type="number" class="dataKangnam dataKangnam${i}" value="${dataValue[i + 1][1]}">
                 </div>
-                <div class="form__control">
-                  <input type="number" class="dataParis${i}" placeholder="0" value='${parse[i][2]}'>
+                <div class="list__control list__item">
+                  <input type="number" class="dataParis dataParis${i}" value="${dataValue[i + 1][2]}">
                 </div>
-                <div class="form__control">
-                  <input type="number" class="dataHongha${i}" placeholder="0" value='${parse[i][3]}'>
+                <div class="list__control list__item">
+                  <input type="number" class="dataHongha dataHongha${i}" value="${dataValue[i + 1][3]}">
                 </div>
               </div>
             `;
-        }
       }
-      else {
-        for (let i = 1; i <= 12; i++) {
-          html += `
-              <div class="form__group">
-                <div class="form__control">
-                  <input type="number" disabled value="${i}">
-                </div>
-                <div class="form__control">
-                  <input type="number" class="dataKangnam${i}" placeholder="0">
-                </div>
-                <div class="form__control">
-                  <input type="number" class="dataParis${i}" placeholder="0">
-                </div>
-                <div class="form__control">
-                  <input type="number" class="dataHongha${i}" placeholder="0">
-                </div>
-              </div>
-            `;
-        }
-      }
-      document.getElementById("form").insertAdjacentHTML("beforeend", html);
+      document.getElementById("list__data").insertAdjacentHTML("beforeend", html);
     };
 
+
     const renderChart = () => {
-      const getvalue = localStorage.getItem("data");
-      if (getvalue) {
-        const parse = JSON.parse(getvalue);
-        const data2 = [];
-        for (let i = 0; i < parse.length; i++) {
-          data2.push(parse[i]);
-        }
+      google.charts.load("current", { packages: ["bar"] });
+      google.charts.setOnLoadCallback(drawChart);
 
-        google.charts.load("current", { packages: ["bar"] });
-        google.charts.setOnLoadCallback(drawChart);
+      function drawChart() {
+        var data = google.visualization.arrayToDataTable(dataValue);
 
-        function drawChart() {
-          var data = google.visualization.arrayToDataTable(data2);
+        var options = {
+          chart: {
+            title: 'Company Performance',
+            subtitle: 'Sales, Expenses, and Profit: 2014-2017',
+          }
+        };
 
-          var options = {};
+        var chart = new google.charts.Bar(
+          document.getElementById("chart__column")
+        );
 
-          var chart = new google.charts.Bar(
-            document.getElementById("chart__column")
-          );
-
-          chart.draw(data, google.charts.Bar.convertOptions(options));
-        }
-      } else {
-        document.getElementById("chart__column").innerHTML = "No data";
+        chart.draw(data, google.charts.Bar.convertOptions(options));
       }
     };
     renderChart();
+    renderListData()
     document.getElementById("submit").addEventListener("click", function (e) {
       e.preventDefault();
-      let elms = document.querySelectorAll(".form__group");
-      let dataValue = [["Tháng", "Kangnam", "Paris", "Hồng Hà"]];
+      let elms = document.querySelectorAll(".list__item .dataKangnam");
+      let elms2 = document.querySelectorAll(".list__item .dataParis");
+      let elms3 = document.querySelectorAll(".list__item .dataHongha");
+      let dataValueKn = [];
+      let dataValuePr = [];
+      let dataValueHh = [];
+      let dataValue2 = [];
       [...elms].map((item, index) => {
-        let valueKn = item.getElementsByClassName(`dataKangnam${index + 1}`)[0].value;
-        let valuePr = item.getElementsByClassName(`dataParis${index + 1}`)[0].value;
-        let valueHh = item.getElementsByClassName(`dataHongha${index + 1}`)[0].value;
-        let arr = [index + 1, Number(valueKn), Number(valuePr), Number(valueHh)];
-        dataValue.push(arr);
+        let valueKn = item.value;
+        dataValueKn.push(Number(valueKn));
       });
+      [...elms2].map((item, index) => {
+        let valuePr = item.value;
+        dataValuePr.push(Number(valuePr));
+      });
+      [...elms3].map((item, index) => {
+        let valueHh = item.value;
+        dataValueHh.push(Number(valueHh));
+      });
+      for (let i = 0; i < dataValueKn.length; i++) {
+        let arr = ['Tháng ' + (i + 1), Number(dataValueKn[i]), Number(dataValuePr[i]), Number(dataValueHh[i])];
+        dataValue2.push(arr);
+      }
+      Object.assign(dataValue, dataValue2);
+      console.log(dataValue);
 
       const myJSON = JSON.stringify(dataValue);
       localStorage.setItem("data", myJSON);

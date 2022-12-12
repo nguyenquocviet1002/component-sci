@@ -5,126 +5,152 @@
   <meta charset="UTF-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Document</title>
+  <title>Data Khách Hàng</title>
   <link rel="stylesheet" href="https://huudinh.github.io/assets/sass/lib.min.css" />
-  <link rel="stylesheet" href="media/sass/style.css">
+  <link rel="stylesheet" href="media/sass/style.css" />
 </head>
 
 <body>
   <div class="container">
-    <div id="myChart" style="width: 100%; max-width: 100%; height: 400px"></div>
-    <div>
+    <div id="chartPie"></div>
+    <div class="form__group">
       <label for="title">Title</label>
-      <input type="text" id="title" />
+      <input type="text" id="title" class="form__control" />
     </div>
-    <div>
+    <div class="form__group">
       <label for="data">Data</label>
-      <input type="number" id="data" />
+      <input type="number" id="data" class="form__control" min="0" />
     </div>
-    <button type="submit" id="submit">Gửi</button>
-    <div class="form" id="form">
-      <div class="chart__title">
+    <button type="submit" id="submit" class="button button--gradientBlue">Gửi</button>
+    <button type="submit" id="save" class="button button--gradientGreen">Lưu</button>
+    <div class="list">
+      <div class="list__title">
         <div>Title</div>
         <div>Data</div>
+        <div>Action</div>
       </div>
+      <div id="list__data"></div>
     </div>
   </div>
 
   <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 
   <script>
-    
-    
+    const dataLocal = localStorage.getItem("dataPie");
+    if (dataLocal) {
+      var dataArray = JSON.parse(dataLocal);
+    } else {
+      var dataArray = [
+        ["Title", "Data"],
+        ["Kangnam", 100],
+        ["Paris", 100],
+        ["Hồng Hà", 100]
+      ];
+    }
 
-
-    let dataArray = [["Title", "Data"], ["title1", 25], ["title2", 50]];
     const renderChart = () => {
       google.charts.load("current", { packages: ["corechart"] });
       google.charts.setOnLoadCallback(drawChart);
 
       function drawChart() {
-        var data = google.visualization.arrayToDataTable(dataArray);
+        let data = google.visualization.arrayToDataTable(dataArray);
 
-        var options = {
-          title: "World Wide Wine Production",
+        let options = {
           is3D: true,
+          title: "Data Khách Hàng"
         };
 
-        var chart = new google.visualization.PieChart(
-          document.getElementById("myChart")
-        );
+        const chart = new google.visualization.PieChart(document.getElementById("chartPie"));
         chart.draw(data, options);
       }
-      // const getvalue = localStorage.getItem("data");
-      // if (getvalue) {
-      //   const parse = JSON.parse(getvalue);
-      //   const data2 = [];
-      //   for (let i = 0; i < parse.length; i++) {
-      //     data2.push(parse[i]);
-      //   }
-
-      // } else {
-      //   document.getElementById("myChart").innerHTML = "No data";
-      // }
     };
 
-    const renderUI = () => {
-      // const getvalue = localStorage.getItem("data");
+    const renderListData = () => {
       let html = "";
       for (let i = 1; i < dataArray.length; i++) {
         html += `
-            <div class="form__group">
-              <div class="form__control">
-                <input type="text" class="dataKangnam${i}" placeholder="0" value='${dataArray[i][0]}'>
+            <div class="list__group">
+              <div class="list__control">
+                <input type="text" class='title${i}' placeholder='${dataArray[i][0]}'>
               </div>
-              <div class="form__control">
-                <input type="number" class="dataParis${i}" placeholder="0" value='${dataArray[i][1]}'>
+              <div class="list__control">
+                <input type="number" class='data${i}' placeholder='${dataArray[i][1]}'>
+              </div>
+              <div class="list__control">
+                <button class="button button--gradientGreen button--icon remove remove--${i}" onClick='editData(${i})'><i class="icon-pencil-1"></i></button>
+                <button class="button button--gradientRed button--icon remove remove--${i}" onClick='removeData(${i})'><i class="icon-trash"></i></button>
               </div>
             </div>
           `;
       }
-      // if (getvalue) {
-      //   const parse = JSON.parse(getvalue);
-      // }
-      // else {
-      //   document.getElementById("myChart").innerHTML = "No data";
-      // }
-      document.getElementById("form").insertAdjacentHTML("beforeend", html);
-    }
+      document.getElementById("list__data").insertAdjacentHTML("beforeend", html);
+    };
 
-    const formInput = () => {
+    const addDataToList = () => {
       let html = "";
       for (let i = 1; i < dataArray.length; i++) {
         html = `
-            <div class="form__group">
-              <div class="form__control">
-                <input type="text" class="dataKangnam${i}" placeholder="0" value='${dataArray[i][0]}'>
+            <div class="list__group">
+              <div class="list__control">
+                <input type="text" class='title${i}' placeholder='${dataArray[i][0]}'>
               </div>
-              <div class="form__control">
-                <input type="number" class="dataParis${i}" placeholder="0" value='${dataArray[i][1]}'>
+              <div class="list__control">
+                <input type="number" class='data${i}' placeholder='${dataArray[i][1]}'>
+              </div>
+              <div class="list__control">
+                <button class="button button--gradientGreen button--icon remove remove--${i}" onClick='editData(${i})'><i class="icon-pencil-1"></i></button>
+                <button class="button button--gradientRed button--icon remove remove--${i}" onClick='removeData(${i})'><i class="icon-trash"></i></button>
               </div>
             </div>
           `;
       }
-      document.getElementById("form").insertAdjacentHTML("beforeend", html);
+      document.getElementById("list__data").insertAdjacentHTML("beforeend", html);
+    };
+
+    const editData = (id) => {
+      const newTitle = document.getElementsByClassName(`title${id}`)[0].value;
+      const newData = document.getElementsByClassName(`data${id}`)[0].value;
+      if(newTitle){
+        dataArray[id][0] = newTitle
+      }
+      if(newData){
+        dataArray[id][1] = Number(newData)
+      }
+      renderChart();
     }
 
-    renderChart();
-    renderUI()
+    const removeData = (id) => {
+      dataArray = dataArray.filter((item, index) => {
+        return index !== id;
+      });
+      const container = document.getElementById("list__data");
+      while (container.firstChild) {
+        container.removeChild(container.firstChild);
+      }
+      renderChart();
+      renderListData();
+    };
 
     document.getElementById("submit").addEventListener("click", function (e) {
       e.preventDefault();
-      let title = document.getElementById("title").value;
-      let data = document.getElementById("data").value;
-      const value = [title, Number(data)];
+      let title = document.getElementById("title");
+      let data = document.getElementById("data");
+      let value = [title.value, Number(data.value)];
       dataArray.push(value);
-      // const myJSON = JSON.stringify(dataArray);
-      // localStorage.setItem("data", myJSON);
-      document.getElementById("title").value = '';
-      document.getElementById("data").value = '';
+      title = "";
+      data = "";
       renderChart();
-      formInput();
+      addDataToList();
     });
+
+    document.getElementById("save").addEventListener("click", function (e) {
+      e.preventDefault();
+      const myJSON = JSON.stringify(dataArray);
+      localStorage.setItem("dataPie", myJSON);
+    });
+
+    renderChart();
+    renderListData();
   </script>
   <script></script>
 </body>
