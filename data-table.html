@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Component Navbar</title>
+    <link rel="stylesheet" href="media/sass/style.css">
+</head>
+
+<body>
+    <div class="container" style="padding-top: 20px;">
+        <!-- start component -->
+        <div class="dataTable">
+            <div class="dataTable__filter">
+                <select class="dataTable__show">
+                    <option value="10">10</option>
+                    <option value="50">50</option>
+                    <option value="100">100</option>
+                </select>
+                <div class="dataTable__search">
+                    <div class="dataTable__searchIcon">
+                        <svg class="w-5 h-5 text-gray-500 dark:text-gray-400" aria-hidden="true" fill="currentColor"
+                            viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd"
+                                d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
+                                clip-rule="evenodd"></path>
+                        </svg>
+                    </div>
+                    <input type="text" id="table-search" class="dataTable__searchInput" placeholder="Search">
+                </div>
+            </div>
+            <table class="dataTable__table">
+                <thead>
+                    <tr>
+                        <th scope="col" class="py-3 px-6">
+                            Name
+                        </th>
+                        <th scope="col" class="py-3 px-6">
+                            Position
+                        </th>
+                        <th scope="col" class="py-3 px-6">
+                            Status
+                        </th>
+                        <th scope="col" class="py-3 px-6">
+                            Action
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td scope="row">
+                            Neil Sims
+                        </td>
+                        <td>
+                            React Developer
+                        </td>
+                        <td>
+                            <div class="dataTable__status">
+                                <div class="dataTable__dot"></div> Online
+                            </div>
+                        </td>
+                        <td>
+                            <a href="#" class="button red dataTable__btn"><i class="icon-trash"></i></a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td scope="row">
+                            Neil Sims
+                        </td>
+                        <td>
+                            React Developer
+                        </td>
+                        <td>
+                            <div class="dataTable__status">
+                                <div class="dataTable__dot"></div> Online
+                            </div>
+                        </td>
+                        <td>
+                            <a href="#" class="button red dataTable__btn"><i class="icon-trash"></i></a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td scope="row">
+                            Neil Sims
+                        </td>
+                        <td>
+                            React Developer
+                        </td>
+                        <td>
+                            <div class="dataTable__status">
+                                <div class="dataTable__dot"></div> Online
+                            </div>
+                        </td>
+                        <td>
+                            <a href="#" class="button red dataTable__btn"><i class="icon-trash"></i></a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- end component -->
+    </div>
+
+    <script>
+
+    </script>
+
+</body>
+
+</html>

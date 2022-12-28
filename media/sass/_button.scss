@@ -117,15 +117,19 @@
             }
         }
         &.yellow{
-            background-color: rgb(227 160 8/1);
+            background-color: transparent;
+            color: rgb(227 160 8/1);
+            border: 1px solid rgb(227 160 8/1);
             &:hover {
-                background-color: rgb(194 120 3/1);
+                color: rgb(255 255 255/1);
             }
         }
         &.purple{
-            background-color: rgb(108 43 217/1);
+            background-color: transparent;
+            color: rgb(108 43 217/1);
+            border: 1px solid rgb(108 43 217/1);
             &:hover {
-                background-color: rgb(85 33 181/1);
+                color: rgb(255 255 255/1);
             }
         }
     }
