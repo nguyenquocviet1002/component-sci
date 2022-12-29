@@ -5100,11 +5100,61 @@ ul.tabs li {
   margin-right: 0.5rem;
   background-color: rgb(0, 0, 0);
 }
+.dataTable__dot--green {
+  background-color: rgb(49, 196, 141);
+}
+.dataTable__dot--red {
+  background-color: rgb(240, 82, 82);
+}
 .dataTable__btn {
   margin: 0;
   font-size: 1rem;
   padding-left: 0.75rem;
   padding-right: 0.75rem;
+}
+.dataTable nav {
+  text-align: center;
+  margin: 30px 0;
+}
+.dataTable__pagination {
+  display: inline-flex;
+  align-items: center;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.dataTable__paginationItem {
+  display: block;
+  padding: 0.5rem 0.75rem;
+  margin-left: 0;
+  border: 1px solid rgb(209, 213, 219);
+  line-height: 1.25;
+}
+.dataTable__paginationItem:hover {
+  background-color: rgb(243, 244, 246);
+}
+.dataTable__paginationItem.active {
+  color: rgb(28, 100, 242);
+  background-color: rgb(235, 245, 255);
+  border-color: rgb(164, 202, 254);
+}
+.dataTable__pagination > :not([hidden]) ~ :not([hidden]) {
+  margin-left: -1px;
+  margin-right: 0px;
+}
+.dataTable__arrow svg {
+  width: 1.25rem;
+  height: 1.25rem;
+  display: block;
+  vertical-align: middle;
+}
+.dataTable__arrow--prev {
+  border-bottom-left-radius: 0.5rem;
+  border-top-left-radius: 0.5rem;
+}
+.dataTable__arrow--next {
+  border-bottom-right-radius: 0.5rem;
+  border-top-right-radius: 0.5rem;
 }
 
 html, body {

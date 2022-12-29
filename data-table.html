@@ -48,64 +48,135 @@
                         </th>
                     </tr>
                 </thead>
-                <tbody>
-                    <tr>
-                        <td scope="row">
-                            Neil Sims
-                        </td>
-                        <td>
-                            React Developer
-                        </td>
-                        <td>
-                            <div class="dataTable__status">
-                                <div class="dataTable__dot"></div> Online
-                            </div>
-                        </td>
-                        <td>
-                            <a href="#" class="button red dataTable__btn"><i class="icon-trash"></i></a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td scope="row">
-                            Neil Sims
-                        </td>
-                        <td>
-                            React Developer
-                        </td>
-                        <td>
-                            <div class="dataTable__status">
-                                <div class="dataTable__dot"></div> Online
-                            </div>
-                        </td>
-                        <td>
-                            <a href="#" class="button red dataTable__btn"><i class="icon-trash"></i></a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td scope="row">
-                            Neil Sims
-                        </td>
-                        <td>
-                            React Developer
-                        </td>
-                        <td>
-                            <div class="dataTable__status">
-                                <div class="dataTable__dot"></div> Online
-                            </div>
-                        </td>
-                        <td>
-                            <a href="#" class="button red dataTable__btn"><i class="icon-trash"></i></a>
-                        </td>
-                    </tr>
-                </tbody>
+                <tbody id="data"></tbody>
             </table>
+            <nav aria-label="Page navigation example">
+                <ul class="dataTable__pagination">
+                    <li>
+                        <a href="#" class="dataTable__paginationItem dataTable__arrow dataTable__arrow--prev" id="btn_prev">
+                            <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd"
+                                    d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
+                                    clip-rule="evenodd"></path>
+                            </svg>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="dataTable__paginationItem">1</a>
+                    </li>
+                    <li>
+                        <a href="#" class="dataTable__paginationItem">2</a>
+                    </li>
+                    <li>
+                        <a href="#" class="dataTable__paginationItem active">3</a>
+                    </li>
+                    <li>
+                        <a href="#" class="dataTable__paginationItem dataTable__arrow dataTable__arrow--next" id="btn_next">
+                            <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd"
+                                    d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
+                                    clip-rule="evenodd"></path>
+                            </svg>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
         </div>
-
         <!-- end component -->
     </div>
 
     <script>
+        const currentPage = 1;
+        const recordsPerPage = 2;
+        let html = "";
 
+        const objJson = [
+            { name: "AdName 1", position: "position 1", status: true },
+            { name: "AdName 2", position: "position 2", status: true },
+            { name: "AdName 3", position: "position 3", status: false },
+            { name: "AdName 4", position: "position 4", status: true },
+            { name: "AdName 5", position: "position 5", status: true },
+            { name: "AdName 6", position: "position 6", status: false },
+            { name: "AdName 7", position: "position 7", status: true },
+            { name: "AdName 8", position: "position 8", status: true },
+            { name: "AdName 9", position: "position 9", status: false },
+            { name: "AdName 10", position: "position 10", status: true }
+        ];
+
+        const insertData = (arr, position, index) => {
+            arr.slice(0, index).map(item => {
+                html += `
+                <tr>
+                    <td scope="row">
+                        ${item.name}
+                    </td>
+                    <td>
+                        ${item.position}
+                    </td>
+                    <td>
+                        <div class="dataTable__status">
+                            <div class="dataTable__dot ${item.status == true ? "dataTable__dot--green" : "dataTable__dot--red"} "></div> ${item.status == true ? "Online" : "Offline"}
+                        </div>
+                    </td>
+                    <td>
+                        <a href="#" class="button red dataTable__btn"><i class="icon-trash"></i></a>
+                    </td>
+                </tr>
+            `
+            });
+
+            position.insertAdjacentHTML("beforeend", html);
+        }
+
+
+        const prevPage = () => {
+            if (currentPage > 1) {
+                currentPage--;
+                changePage(currentPage);
+            }
+        }
+
+        const nextPage = () => {
+            if (currentPage < numPages()) {
+                currentPage++;
+                changePage(currentPage);
+            }
+        }
+
+        const changePage = (page) => {
+            var btn_next = document.getElementById("btn_next");
+            var btn_prev = document.getElementById("btn_prev");
+
+            // Validate page
+            if (page < 1) page = 1;
+            if (page > numPages()) page = numPages();
+
+            for (var i = (page - 1) * recordsPerPage; i < (page * recordsPerPage); i++) {
+                insertData(objJson, data, i)
+            }
+
+            if (page == 1) {
+                btn_prev.style.visibility = "hidden";
+            } else {
+                btn_prev.style.visibility = "visible";
+            }
+
+            if (page == numPages()) {
+                btn_next.style.visibility = "hidden";
+            } else {
+                btn_next.style.visibility = "visible";
+            }
+        }
+
+        function numPages() {
+            return Math.ceil(objJson.length / recordsPerPage);
+        }
+
+        window.onload = function () {
+            changePage(1);
+        };
     </script>
 
 </body>
