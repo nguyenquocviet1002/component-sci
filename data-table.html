@@ -14,10 +14,10 @@
         <!-- start component -->
         <div class="dataTable">
             <div class="dataTable__filter">
-                <select class="dataTable__show">
-                    <option value="10">10</option>
-                    <option value="50">50</option>
-                    <option value="100">100</option>
+                <select class="dataTable__show" id="show">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
                 </select>
                 <div class="dataTable__search">
                     <div class="dataTable__searchIcon">
@@ -51,9 +51,10 @@
                 <tbody id="data"></tbody>
             </table>
             <nav aria-label="Page navigation example">
-                <ul class="dataTable__pagination">
-                    <li>
-                        <a href="#" class="dataTable__paginationItem dataTable__arrow dataTable__arrow--prev" id="btn_prev">
+                <ul class="dataTable__pagination" id="pagination">
+                    <!-- <li>
+                        <a href="javascript:prevPage()"
+                            class="dataTable__paginationItem dataTable__arrow dataTable__arrow--prev" id="btn_prev">
                             <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
                                 xmlns="http://www.w3.org/2000/svg">
                                 <path fill-rule="evenodd"
@@ -61,8 +62,8 @@
                                     clip-rule="evenodd"></path>
                             </svg>
                         </a>
-                    </li>
-                    <li>
+                    </li> -->
+                    <!-- <li>
                         <a href="#" class="dataTable__paginationItem">1</a>
                     </li>
                     <li>
@@ -70,9 +71,10 @@
                     </li>
                     <li>
                         <a href="#" class="dataTable__paginationItem active">3</a>
-                    </li>
-                    <li>
-                        <a href="#" class="dataTable__paginationItem dataTable__arrow dataTable__arrow--next" id="btn_next">
+                    </li> -->
+                    <!-- <li>
+                        <a href="javascript:nextPage()"
+                            class="dataTable__paginationItem dataTable__arrow dataTable__arrow--next" id="btn_next">
                             <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
                                 xmlns="http://www.w3.org/2000/svg">
                                 <path fill-rule="evenodd"
@@ -80,7 +82,7 @@
                                     clip-rule="evenodd"></path>
                             </svg>
                         </a>
-                    </li>
+                    </li> -->
                 </ul>
             </nav>
         </div>
@@ -88,9 +90,17 @@
     </div>
 
     <script>
-        const currentPage = 1;
-        const recordsPerPage = 2;
+        let currentPage = 1;
         let html = "";
+        let recordsPerPage = 1
+
+        const changeView = () => {
+            let index = document.getElementById("show")
+            index.addEventListener('change', function () {
+                recordsPerPage = index.value;
+                changePage(1)
+            })
+        }
 
         const objJson = [
             { name: "AdName 1", position: "position 1", status: true },
@@ -104,32 +114,6 @@
             { name: "AdName 9", position: "position 9", status: false },
             { name: "AdName 10", position: "position 10", status: true }
         ];
-
-        const insertData = (arr, position, index) => {
-            arr.slice(0, index).map(item => {
-                html += `
-                <tr>
-                    <td scope="row">
-                        ${item.name}
-                    </td>
-                    <td>
-                        ${item.position}
-                    </td>
-                    <td>
-                        <div class="dataTable__status">
-                            <div class="dataTable__dot ${item.status == true ? "dataTable__dot--green" : "dataTable__dot--red"} "></div> ${item.status == true ? "Online" : "Offline"}
-                        </div>
-                    </td>
-                    <td>
-                        <a href="#" class="button red dataTable__btn"><i class="icon-trash"></i></a>
-                    </td>
-                </tr>
-            `
-            });
-
-            position.insertAdjacentHTML("beforeend", html);
-        }
-
 
         const prevPage = () => {
             if (currentPage > 1) {
@@ -148,25 +132,80 @@
         const changePage = (page) => {
             var btn_next = document.getElementById("btn_next");
             var btn_prev = document.getElementById("btn_prev");
+            var listing_table = document.getElementById("data");
 
             // Validate page
             if (page < 1) page = 1;
             if (page > numPages()) page = numPages();
-
+            listing_table.innerHTML = "";
             for (var i = (page - 1) * recordsPerPage; i < (page * recordsPerPage); i++) {
-                insertData(objJson, data, i)
+                listing_table.innerHTML += `
+                <tr>
+                    <td scope="row">
+                        ${objJson[i].name}
+                    </td>
+                    <td>
+                        ${objJson[i].position}
+                    </td>
+                    <td>
+                        <div class="dataTable__status">
+                            <div class="dataTable__dot ${objJson[i].status == true ? "dataTable__dot--green" : "dataTable__dot--red"} "></div> ${objJson[i].status == true ? "Online" : "Offline"}
+                        </div>
+                    </td>
+                    <td>
+                        <a href="#" class="button red dataTable__btn"><i class="icon-trash"></i></a>
+                    </td>
+                </tr>
+            `;
             }
+            pagination();
+        }
 
-            if (page == 1) {
-                btn_prev.style.visibility = "hidden";
-            } else {
-                btn_prev.style.visibility = "visible";
+        function pagination() {
+            const elementPagination = document.getElementById('pagination');
+            const length = numPages();
+            let paginationItem = '';
+            for (let i = 1; i <= length; i++) {
+                paginationItem += `
+                    <li>
+                        <a href="#" class="dataTable__paginationItem dataTable__paginationNumber" data-id="${i}">${i}</a>
+                    </li>
+                    `;
             }
+            let paginationList = `
+                <li>
+                    <a href="javascript:prevPage()"
+                        class="dataTable__paginationItem dataTable__arrow dataTable__arrow--prev" id="btn_prev">
+                        <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd"
+                                d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
+                                clip-rule="evenodd"></path>
+                        </svg>
+                    </a>
+                </li>
+                ${paginationItem}
+                <li>
+                    <a href="javascript:nextPage()"
+                        class="dataTable__paginationItem dataTable__arrow dataTable__arrow--next" id="btn_next">
+                        <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd"
+                                d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
+                                clip-rule="evenodd"></path>
+                        </svg>
+                    </a>
+                </li>
+            `;
+            elementPagination.innerHTML = paginationList;
 
-            if (page == numPages()) {
-                btn_next.style.visibility = "hidden";
-            } else {
-                btn_next.style.visibility = "visible";
+            const paginationNumber = document.getElementsByClassName('dataTable__paginationNumber');
+            for (let i = 0; i < paginationNumber.length; i++) {
+                paginationNumber[i].addEventListener('click', function () {
+                    const id = paginationNumber[i].getAttribute('data-id');
+                    paginationNumber[i].classList.add('active');
+                    changePage(id);
+                })
             }
         }
 
@@ -177,6 +216,7 @@
         window.onload = function () {
             changePage(1);
         };
+        changeView();
     </script>
 
 </body>
