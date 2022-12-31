@@ -1,4 +1,4 @@
-.card {
+.widget {
     display: flex;
     justify-content: center;
 
@@ -8,15 +8,46 @@
         border: 1px solid rgb(229 231 235/1);
         border-radius: 0.5rem;
         max-width: 24rem;
+        width: 100%;
         margin: 0 1rem;
+        padding: 20px;
     }
 
-    &__img {
-        border-top-left-radius: 0.5rem;
-        border-top-right-radius: 0.5rem;
-        height: auto;
-        max-width: 100%;
-        display: block;
+    &__flex {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+    }
+
+    &__icon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 3.5rem;
+        height: 3.5rem;
+        background-color: #6366f1;
+        color: #fff;
+        border-radius: 0.5rem;
+    }
+
+    &__data {
+        p {
+            margin: 0;
+        }
+
+        p.title {
+            color: #6e7583;
+        }
+
+        p.data {
+            font-size: 20px;
+            font-weight: 700;
+        }
+
+        span.percent{
+            font-size: 13px;
+            color: green;
+        }
     }
 
     &__content {
@@ -32,13 +63,15 @@
         margin-top: 0;
         margin-bottom: 0.5rem;
     }
-    &__desc{
+
+    &__desc {
         color: rgb(55 65 81/1);
         font-weight: 400;
         margin-top: 0;
         margin-bottom: 0.75rem;
     }
-    &__readmore{
+
+    &__readmore {
         color: rgb(255 255 255/1);
         font-weight: 500;
         font-size: .875rem;
@@ -52,17 +85,21 @@
         border-radius: 0.5rem;
         display: inline-flex;
         align-items: center;
-        .icon-right-3{
+
+        .icon-right-3 {
             margin-right: -0.25rem;
             margin-left: 0.5rem;
         }
-        &:hover{
+
+        &:hover {
             background-color: rgb(30 66 159/1);
         }
     }
-    @media (max-width: 768px){
+
+    @media (max-width: 768px) {
         flex-wrap: wrap;
-        &__item{
+
+        &__item {
             max-width: 100%;
             margin-bottom: 20px;
         }
