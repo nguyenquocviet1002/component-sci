@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Component Navbar</title>
+    <title>Component Data Table</title>
     <link rel="stylesheet" href="media/sass/style.css">
 </head>
 
@@ -51,39 +51,7 @@
                 <tbody id="data"></tbody>
             </table>
             <nav aria-label="Page navigation example">
-                <ul class="dataTable__pagination" id="pagination">
-                    <!-- <li>
-                        <a href="javascript:prevPage()"
-                            class="dataTable__paginationItem dataTable__arrow dataTable__arrow--prev" id="btn_prev">
-                            <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
-                                xmlns="http://www.w3.org/2000/svg">
-                                <path fill-rule="evenodd"
-                                    d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
-                                    clip-rule="evenodd"></path>
-                            </svg>
-                        </a>
-                    </li> -->
-                    <!-- <li>
-                        <a href="#" class="dataTable__paginationItem">1</a>
-                    </li>
-                    <li>
-                        <a href="#" class="dataTable__paginationItem">2</a>
-                    </li>
-                    <li>
-                        <a href="#" class="dataTable__paginationItem active">3</a>
-                    </li> -->
-                    <!-- <li>
-                        <a href="javascript:nextPage()"
-                            class="dataTable__paginationItem dataTable__arrow dataTable__arrow--next" id="btn_next">
-                            <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
-                                xmlns="http://www.w3.org/2000/svg">
-                                <path fill-rule="evenodd"
-                                    d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
-                                    clip-rule="evenodd"></path>
-                            </svg>
-                        </a>
-                    </li> -->
-                </ul>
+                <ul class="dataTable__pagination" id="pagination"></ul>
             </nav>
         </div>
         <!-- end component -->
@@ -114,7 +82,19 @@
             { name: "AdName 9", position: "position 9", status: false },
             { name: "AdName 10", position: "position 10", status: true }
         ];
-
+// const search =(text)=>{
+//     const dataSearch=[]
+//     for(let item of objJson){
+//         if(item.name.search(text)!==-1){
+//             dataSearch.push(item)
+//         }
+//     }
+//     return dataSearch
+// }   
+// document.getElementById('table-search').addEventListener('input',()=>{
+//     console.log(" search(document.getElementById('table-search').value);: ",  search(document.getElementById('table-search').value));
+// })
+// search('AdName 10')
         const prevPage = () => {
             if (currentPage > 1) {
                 currentPage--;

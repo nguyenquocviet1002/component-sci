@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Component Navbar</title>
+    <title>Component Dropdown</title>
     <link rel="stylesheet" href="media/sass/style.css">
 </head>
 
@@ -41,11 +41,12 @@
     <script>
         const btn = document.getElementsByClassName('dropdown');
         btn[0].addEventListener('click', function () {
-            document.getElementsByClassName('dropdown__content')[0].classList.toggle('active');
+            document.getElementsByClassName('dropdown__content')[0].classList.add('active');
         })
         const btn1 = document.getElementsByClassName('dropdown--1');
         const btn3 = document.getElementsByClassName('dropdown__content--1');
         btn1[0].addEventListener('mouseover', function () {
+            console.log(1)
             document.getElementsByClassName('dropdown__content--1')[0].classList.toggle('active');
         })
         // btn3[0].addEventListener('mouseover', function () {
